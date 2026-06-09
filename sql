@@ -1,12 +1,10 @@
--- Projets
-CREATE TABLE projects (
+CREATE TABLE IF NOT EXISTS projects (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Conversations
-CREATE TABLE conversations (
+CREATE TABLE IF NOT EXISTS conversations (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   project_id UUID REFERENCES projects(id) ON DELETE CASCADE,
   title TEXT NOT NULL,
@@ -14,8 +12,7 @@ CREATE TABLE conversations (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Messages
-CREATE TABLE messages (
+CREATE TABLE IF NOT EXISTS messages (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   conversation_id UUID REFERENCES conversations(id) ON DELETE CASCADE,
   role TEXT NOT NULL,
@@ -23,5 +20,4 @@ CREATE TABLE messages (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Index pour la recherche full-text
-CREATE INDEX messages_search_idx ON messages USING GIN (to_tsvector('french', content));
+CREATE INDEX IF NOT EXISTS messages_search_idx ON messages USING GIN (to_tsvector('french', content));
