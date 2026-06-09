@@ -34,3 +34,17 @@ sudo ninja install
 
 sudo systemctl restart fprintd
 fprintd-enroll
+
+
+cat > /usr/lib/x86_64-linux-gnu/pkgconfig/udev.pc << 'EOF'
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/x86_64-linux-gnu
+includedir=${prefix}/include
+
+Name: udev
+Description: udev
+Version: 257
+Libs: -L${libdir} -ludev
+Cflags: -I${includedir}
+EOF
