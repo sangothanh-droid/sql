@@ -48,3 +48,10 @@ Version: 257
 Libs: -L${libdir} -ludev
 Cflags: -I${includedir}
 EOF
+
+
+cat >> /usr/lib/x86_64-linux-gnu/pkgconfig/udev.pc << 'EOF'
+udevdir=/lib/udev
+udev_libexecdir=/lib/udev
+systemdsystemunitdir=/lib/systemd/system
+EOF
